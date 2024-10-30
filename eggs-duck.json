@@ -1,0 +1,53 @@
+{
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "name": "Node.js Playwright",
+    "author": "me@windowsed.me",
+    "description": "Node.js application with Playwright support for browser automation",
+    "features": null,
+    "docker_images": {
+        "ghcr.io/dalaoteachme/nodejs-playwright:latest": "ghcr.io/dalaoteachme/nodejs-playwright:latest"
+    },
+    "file_denylist": [],
+    "startup": "node index.js",
+    "config": {
+        "files": "{}",
+        "startup": {
+            "done": "Started server"
+        },
+        "logs": {
+            "custom": false,
+            "location": "logs/latest.log"
+        },
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\ncd \/mnt\/server\r\n\r\nif [[ ! -f package.json ]]; then\r\n    npm init -y\r\nfi\r\n\r\nif [[ -f package.json ]]; then\r\n    npm install\r\nfi",
+            "container": "node:20-bookworm",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Startup Command",
+            "description": "The command to start your application",
+            "env_variable": "STARTUP",
+            "default_value": "node index.js",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string"
+        },
+        {
+            "name": "NODE_ENV",
+            "description": "Node environment setting",
+            "env_variable": "NODE_ENV",
+            "default_value": "production",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:development,production"
+        }
+    ]
+}
